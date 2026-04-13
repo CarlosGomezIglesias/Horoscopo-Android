@@ -22,6 +22,8 @@
 
         <TextView
             android:id="@+id/nombreClick"
+            android:textStyle="bold"
+            android:textSize="24sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
@@ -31,6 +33,7 @@
 
         <TextView
             android:id="@+id/fechasClick"
+            android:textSize="12sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
