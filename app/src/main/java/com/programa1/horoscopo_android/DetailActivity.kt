@@ -17,9 +17,9 @@ class DetailActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val id = intent.getStringExtra("Horoscope_id") !!
-
+        val id = intent.getStringExtra("Horoscope_id")!!
         val horoscope = Horoscope.getById(id)!!
+
 
         Log.i("ZODIAC", "${getString(horoscope.name)} -> ${getString(horoscope.dates)}")
     }

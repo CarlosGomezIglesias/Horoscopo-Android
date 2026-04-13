@@ -23,7 +23,7 @@ class Horoscope (
 
         )
         fun getById(id: String) : Horoscope? {
-            horoscopeList.find {
+             return horoscopeList.find {
                 return@find it.id == id
             }
         }
