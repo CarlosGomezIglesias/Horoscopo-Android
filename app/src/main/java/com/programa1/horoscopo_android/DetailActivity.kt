@@ -2,6 +2,8 @@ package com.programa1.horoscopo_android
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -19,8 +21,17 @@ class DetailActivity : AppCompatActivity() {
         }
         val id = intent.getStringExtra("Horoscope_id")!!
         val horoscope = Horoscope.getById(id)!!
-
-
         Log.i("ZODIAC", "${getString(horoscope.name)} -> ${getString(horoscope.dates)}")
+
+        //Codigo intentado por mi//
+
+        findViewById<TextView>(R.id.nombreClick).text = getString(horoscope.name)
+        findViewById<TextView>(R.id.fechasClick).text  = getString(horoscope.dates)
+        findViewById<ImageView>(R.id.imageClick).setImageResource(horoscope.image)
+
+
+
+
+
     }
 }
