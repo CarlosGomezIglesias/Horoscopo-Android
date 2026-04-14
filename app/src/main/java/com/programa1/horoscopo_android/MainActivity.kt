@@ -14,7 +14,14 @@ import androidx.recyclerview.widget.RecyclerView
 
 class MainActivity : AppCompatActivity() {
     var horoscopeList: List<Horoscope> = Horoscope.horoscopeList
+
+    //codigo mio//
+    var listaFiltrada = horoscopeList.toMutableList()
+
+    //
     lateinit var recyclerView: RecyclerView
+
+    lateinit var adapter: HoroscopeAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +37,7 @@ class MainActivity : AppCompatActivity() {
 
         recyclerView = findViewById(R.id.recyclerView)
 
-        val adapter = HoroscopeAdapter(horoscopeList, { position ->
+        adapter = HoroscopeAdapter(horoscopeList, { position ->
             val horoscope = horoscopeList[position]
             //Navegar al detalle
             val intent = Intent(this, DetailActivity::class.java)
@@ -55,11 +62,29 @@ class MainActivity : AppCompatActivity() {
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 Log.i("Zodiac", "Escribiendo: $newText")
+
+                //codigo mio//
+                val texto = newText?.lowercase() ?: ""
+
+                listaFiltrada.clear()
+
+                if (texto.isEmpty()) {
+                    listaFiltrada.addAll(horoscopeList)
+                } else {
+                    horoscopeList.forEach {
+                        if (getString(it.name).lowercase().contains(texto)
+                            || getString(it.dates).lowercase().contains(texto)) {
+                            listaFiltrada.add(it)
+                        }
+                    }
+                    //
+                    adapter.items = listaFiltrada
+                    adapter.notifyDataSetChanged()
+                }
                 return true
             }
 
         })
-
         return true
     }
 
