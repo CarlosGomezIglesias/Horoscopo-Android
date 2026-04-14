@@ -1,7 +1,10 @@
 package com.programa1.horoscopo_android
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -29,9 +32,49 @@ class DetailActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.fechasClick).text = getString(horoscope.dates)
         findViewById<ImageView>(R.id.imageClick).setImageResource(horoscope.image)
 
+        supportActionBar?.setTitle(horoscope.name)
+        supportActionBar?.setSubtitle(horoscope.dates)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
 
 
 
+
+
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.activity_detail, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle item selection.
+        return when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                true
+            }
+            R.id.menu_favorite -> {
+                //Marcar el horoscopo favorito//
+                true
+            }
+            R.id.menu_share -> {
+                //Compartir horoscopo//
+                share()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    fun share (){
+        val sendIntent = Intent()
+        sendIntent.setAction(Intent.ACTION_SEND)
+        sendIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.")
+        sendIntent.setType("text/plain")
+
+        val shareIntent = Intent.createChooser(sendIntent, null)
+        startActivity(shareIntent)
     }
 }
