@@ -26,7 +26,7 @@ class DetailActivity : AppCompatActivity() {
         //Codigo intentado por mi//
 
         findViewById<TextView>(R.id.nombreClick).text = getString(horoscope.name)
-        findViewById<TextView>(R.id.fechasClick).text  = getString(horoscope.dates)
+        findViewById<TextView>(R.id.fechasClick).text = getString(horoscope.dates)
         findViewById<ImageView>(R.id.imageClick).setImageResource(horoscope.image)
 
 
