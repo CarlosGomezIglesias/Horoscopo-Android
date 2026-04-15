@@ -30,6 +30,11 @@ class HoroscopeAdapter (var items: List<Horoscope>, val onItemCLick:(Int) -> Uni
     override fun getItemCount(): Int {
         return items.size
     }
+
+    fun updateData (dataSet: List<Horoscope>){
+        items=dataSet
+        notifyDataSetChanged()
+    }
 }
 
 class HoroscopeViewHolder (itemView:View): RecyclerView.ViewHolder(itemView) {

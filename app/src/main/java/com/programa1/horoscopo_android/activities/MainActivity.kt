@@ -15,9 +15,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.programa1.horoscopo_android.data.Horoscope
 import com.programa1.horoscopo_android.adapters.HoroscopeAdapter
 import com.programa1.horoscopo_android.R
+import com.programa1.horoscopo_android.utils.search
 
 class MainActivity : AppCompatActivity() {
-    var horoscopeList: List<Horoscope> = Horoscope.Companion.horoscopeList
+    var horoscopeList: List<Horoscope> = Horoscope.horoscopeList
 
     //codigo mio//
     var listaFiltrada = horoscopeList.toMutableList()
@@ -71,31 +72,37 @@ class MainActivity : AppCompatActivity() {
                 return true
             }
 
-            override fun onQueryTextChange(newText: String?): Boolean {
-                Log.i("Zodiac", "Escribiendo: $newText")
+            override fun onQueryTextChange(newText: String): Boolean {
 
-                //codigo mio//
-                val texto = newText?.lowercase() ?: ""
-
-                listaFiltrada.clear()
-                fun filtrar(){
-
+                horoscopeList = Horoscope.horoscopeList.filter {
+                    getString(it.name).search(newText)
+                            || getString(it.dates).search(newText)
                 }
-                if (texto.isEmpty()) {
-                    listaFiltrada.addAll(horoscopeList)
-                } else {
-                    horoscopeList.forEach {
-                        if (getString(it.name).lowercase().contains(texto)
-                            || getString(it.dates).lowercase().contains(texto)) {
-                            listaFiltrada.add(it)
-                        }
-                    }
-                    //
-                    adapter.items = listaFiltrada
-                    adapter.notifyDataSetChanged()
-                }
+                adapter.updateData(horoscopeList)
+
                 return true
             }
+
+            /* codigo mio
+            val texto = newText?.lowercase() ?: ""
+
+            listaFiltrada.clear()
+            fun filtrar(){
+
+            }
+            if (texto.isEmpty()) {
+                listaFiltrada.addAll(horoscopeList)
+            } else {
+                horoscopeList.forEach {
+                    if (getString(it.name).lowercase().contains(texto)
+                        || getString(it.dates).lowercase().contains(texto)) {
+                        listaFiltrada.add(it)
+                    }
+                }
+                //
+                adapter.items = listaFiltrada
+                adapter.notifyDataSetChanged()  */
+
 
         })
         return true
