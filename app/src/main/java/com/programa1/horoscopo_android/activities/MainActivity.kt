@@ -1,9 +1,10 @@
-package com.programa1.horoscopo_android
+package com.programa1.horoscopo_android.activities
 
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
@@ -11,9 +12,12 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.programa1.horoscopo_android.data.Horoscope
+import com.programa1.horoscopo_android.adapters.HoroscopeAdapter
+import com.programa1.horoscopo_android.R
 
 class MainActivity : AppCompatActivity() {
-    var horoscopeList: List<Horoscope> = Horoscope.horoscopeList
+    var horoscopeList: List<Horoscope> = Horoscope.Companion.horoscopeList
 
     //codigo mio//
     var listaFiltrada = horoscopeList.toMutableList()
@@ -57,6 +61,13 @@ class MainActivity : AppCompatActivity() {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 Log.i("Zodiac", "Buscando: $query")
+
+                //Codigo mio// manda un mensaje de buscando: "el texto que has escrito"
+                val intent = Intent(this@MainActivity, MainActivity::class.java)
+                intent.putExtra("query", query)
+                Toast.makeText(this@MainActivity, "Buscando: $query", Toast.LENGTH_SHORT).show()
+                startActivity(intent)
+                //
                 return true
             }
 
@@ -67,7 +78,9 @@ class MainActivity : AppCompatActivity() {
                 val texto = newText?.lowercase() ?: ""
 
                 listaFiltrada.clear()
+                fun filtrar(){
 
+                }
                 if (texto.isEmpty()) {
                     listaFiltrada.addAll(horoscopeList)
                 } else {

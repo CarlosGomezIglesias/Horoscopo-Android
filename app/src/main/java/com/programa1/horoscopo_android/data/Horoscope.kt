@@ -1,4 +1,6 @@
-package com.programa1.horoscopo_android
+package com.programa1.horoscopo_android.data
+
+import com.programa1.horoscopo_android.R
 
 class Horoscope (
     val id: String,
@@ -18,7 +20,8 @@ class Horoscope (
             Horoscope("leo", R.string.horoscope_name_leo, R.string.horoscope_date_leo, R.drawable.leo_icon),
             Horoscope("virgo", R.string.horoscope_name_virgo, R.string.horoscope_date_virgo, R.drawable.virgo_icon),
             Horoscope("libra", R.string.horoscope_name_libra, R.string.horoscope_date_libra, R.drawable.libra_icon),
-            Horoscope("scorpio", R.string.horoscope_name_scorpio, R.string.horoscope_date_scorpio,R.drawable.scorpio_icon),
+            Horoscope("scorpio", R.string.horoscope_name_scorpio, R.string.horoscope_date_scorpio,
+                R.drawable.scorpio_icon),
             Horoscope("sagittarius", R.string.horoscope_name_sagittarius, R.string.horoscope_date_sagittarius, R.drawable.sagittarius_icon)
 
         )

@@ -1,4 +1,4 @@
-package com.programa1.horoscopo_android
+package com.programa1.horoscopo_android.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,6 +6,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.programa1.horoscopo_android.data.Horoscope
+import com.programa1.horoscopo_android.R
 
 class HoroscopeAdapter (var items: List<Horoscope>, val onItemCLick:(Int) -> Unit): RecyclerView.Adapter <HoroscopeViewHolder> (){
 

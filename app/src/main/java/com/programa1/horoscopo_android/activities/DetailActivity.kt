@@ -1,4 +1,4 @@
-package com.programa1.horoscopo_android
+package com.programa1.horoscopo_android.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,6 +11,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.programa1.horoscopo_android.data.Horoscope
+import com.programa1.horoscopo_android.R
 
 class DetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,7 +25,7 @@ class DetailActivity : AppCompatActivity() {
             insets
         }
         val id = intent.getStringExtra("Horoscope_id")!!
-        val horoscope = Horoscope.getById(id)!!
+        val horoscope = Horoscope.Companion.getById(id)!!
         Log.i("ZODIAC", "${getString(horoscope.name)} -> ${getString(horoscope.dates)}")
 
         //Codigo intentado por mi//
