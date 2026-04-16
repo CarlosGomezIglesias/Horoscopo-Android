@@ -20,10 +20,10 @@ import com.programa1.horoscopo_android.utils.search
 class MainActivity : AppCompatActivity() {
     var horoscopeList: List<Horoscope> = Horoscope.horoscopeList
 
-    //codigo mio//
+    /*codigo mio
     var listaFiltrada = horoscopeList.toMutableList()
 
-    //
+    */
     lateinit var recyclerView: RecyclerView
 
     lateinit var adapter: HoroscopeAdapter
@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        adapter.updateData(horoscopeList)
+        adapter.updateData(horoscopeList, query ="" )
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -83,7 +83,7 @@ class MainActivity : AppCompatActivity() {
                     getString(it.name).search(newText)
                             || getString(it.dates).search(newText)
                 }
-                adapter.updateData(horoscopeList)
+                adapter.updateData(horoscopeList, newText)
 
                 return true
             }

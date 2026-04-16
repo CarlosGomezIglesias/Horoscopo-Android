@@ -1,5 +1,9 @@
 package com.programa1.horoscopo_android.adapters
 
+import android.graphics.Color
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.BackgroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +15,9 @@ import com.programa1.horoscopo_android.data.Horoscope
 import com.programa1.horoscopo_android.R
 import com.programa1.horoscopo_android.utils.SessionManager
 
+
 class HoroscopeAdapter (var items: List<Horoscope>, val onItemCLick:(Int) -> Unit): RecyclerView.Adapter <HoroscopeViewHolder> (){
+    private var query: String = ""
 
     //cual es la vista para los elementos
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HoroscopeViewHolder {
@@ -22,7 +28,7 @@ class HoroscopeAdapter (var items: List<Horoscope>, val onItemCLick:(Int) -> Uni
     //cuales son los datos a mostrar para el elemento en la posicion
     override fun onBindViewHolder(holder: HoroscopeViewHolder, position: Int) {
         val horoscope = items[position]
-        holder.render(horoscope)
+        holder.render(horoscope, query)
         holder.itemView.setOnClickListener {
             onItemCLick(position)
         }
@@ -33,10 +39,12 @@ class HoroscopeAdapter (var items: List<Horoscope>, val onItemCLick:(Int) -> Uni
         return items.size
     }
 
-    fun updateData (dataSet: List<Horoscope>){
+    fun updateData (dataSet: List<Horoscope>, query: String){
         items=dataSet
+        this.query=query
         notifyDataSetChanged()
     }
+
 }
 
 class HoroscopeViewHolder (view:View): RecyclerView.ViewHolder(view) {
@@ -45,9 +53,16 @@ class HoroscopeViewHolder (view:View): RecyclerView.ViewHolder(view) {
     val datesTextView: TextView = view.findViewById(R.id.datesTextView)
     val favoriteImageView: ImageView = view.findViewById(R.id.favoriteImageView)
 
-    fun render (horoscope: Horoscope){
-        nameTextView.setText(horoscope.name)
-        datesTextView.setText(horoscope.dates)
+    fun render (horoscope: Horoscope, query: String){
+        val context = itemView.context
+
+        val nameText = context.getString(horoscope.name)
+        val datesText = context.getString(horoscope.dates)
+
+        nameTextView.text = highlightText(nameText, query)
+        datesTextView.text = highlightText(datesText, query)
+
+
         signImageView.setImageResource(horoscope.image)
 
         if(SessionManager(itemView.context).isFavoriteHoroscope(horoscope.id)){
@@ -55,5 +70,32 @@ class HoroscopeViewHolder (view:View): RecyclerView.ViewHolder(view) {
         }else {
             favoriteImageView.isVisible=false
         }
+    }
+
+    fun highlightText(fullText: String, query: String): SpannableString {
+        val spannable = SpannableString(fullText)
+
+        if (query.isEmpty()) return spannable
+
+        val lowerText = fullText.lowercase()
+        val lowerQuery = query.lowercase()
+
+        var startIndex = 0
+
+        while (true) {
+            startIndex = lowerText.indexOf(lowerQuery, startIndex)
+            if (startIndex == -1) break
+
+            spannable.setSpan(
+                BackgroundColorSpan(Color.YELLOW),
+                startIndex,
+                startIndex + query.length,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+
+            startIndex += query.length
+        }
+
+        return spannable
     }
 }
