@@ -87,7 +87,7 @@ class HoroscopeViewHolder (view:View): RecyclerView.ViewHolder(view) {
             if (startIndex == -1) break
 
             spannable.setSpan(
-                BackgroundColorSpan(Color.YELLOW),
+                BackgroundColorSpan(Color.GRAY),
                 startIndex,
                 startIndex + query.length,
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
