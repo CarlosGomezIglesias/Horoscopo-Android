@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:gravity="center_vertical"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:padding="8dp">
@@ -13,10 +14,10 @@
         android:layout_height="86dp"
         android:src="@drawable/aries_icon"/>
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_gravity="center_vertical"
+        android:layout_weight="1"
         android:layout_marginStart="8dp">
 
         <TextView
@@ -35,6 +36,12 @@
 
     </LinearLayout>
 
+    <ImageView
 
+        android:id="@+id/favoriteImageView"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:src="@drawable/ic_favorite_selected"
+        android:visibility="visible"/>
 
 </LinearLayout>

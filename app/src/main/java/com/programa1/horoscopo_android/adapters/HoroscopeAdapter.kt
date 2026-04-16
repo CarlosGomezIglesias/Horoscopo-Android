@@ -5,9 +5,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.programa1.horoscopo_android.data.Horoscope
 import com.programa1.horoscopo_android.R
+import com.programa1.horoscopo_android.utils.SessionManager
 
 class HoroscopeAdapter (var items: List<Horoscope>, val onItemCLick:(Int) -> Unit): RecyclerView.Adapter <HoroscopeViewHolder> (){
 
@@ -37,14 +39,21 @@ class HoroscopeAdapter (var items: List<Horoscope>, val onItemCLick:(Int) -> Uni
     }
 }
 
-class HoroscopeViewHolder (itemView:View): RecyclerView.ViewHolder(itemView) {
-    val signImageView: ImageView = itemView.findViewById(R.id.signImageView)
-    val nameTextView: TextView = itemView.findViewById(R.id.nameTextView)
-    val datesTextView: TextView = itemView.findViewById(R.id.datesTextView)
+class HoroscopeViewHolder (view:View): RecyclerView.ViewHolder(view) {
+    val signImageView: ImageView = view.findViewById(R.id.signImageView)
+    val nameTextView: TextView = view.findViewById(R.id.nameTextView)
+    val datesTextView: TextView = view.findViewById(R.id.datesTextView)
+    val favoriteImageView: ImageView = view.findViewById(R.id.favoriteImageView)
 
     fun render (horoscope: Horoscope){
         nameTextView.setText(horoscope.name)
         datesTextView.setText(horoscope.dates)
         signImageView.setImageResource(horoscope.image)
+
+        if(SessionManager(itemView.context).isFavoriteHoroscope(horoscope.id)){
+            favoriteImageView.visibility= View.VISIBLE
+        }else {
+            favoriteImageView.isVisible=false
+        }
     }
 }
